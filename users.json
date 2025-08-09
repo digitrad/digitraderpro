@@ -1,14 +1,14 @@
 {
-  "totalUsers": 120,
-  "totalDeposits": 45000,
-  "totalWithdrawals": 15000,
-  "pendingWithdrawals": 5,
+  "totalUsers": 200,
+  "totalDeposits": 75000,
+  "totalWithdrawals": 32000,
+  "pendingWithdrawals": 8,
   "recentRegistrations": [
-    { "username": "user1", "date": "2025-08-01" },
-    { "username": "user2", "date": "2025-08-03" }
+    { "username": "alice", "date": "2025-08-01" },
+    { "username": "bob", "date": "2025-08-03" }
   ],
   "recentLogins": [
-    { "username": "user1", "time": "10:15 AM" },
-    { "username": "user3", "time": "11:30 AM" }
+    { "username": "charlie", "time": "10:00 AM" },
+    { "username": "dave", "time": "11:30 AM" }
   ]
 }
