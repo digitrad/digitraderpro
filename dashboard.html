@@ -3,100 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro Login</title>
+  <title>DigiTraderPro Admin Dashboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0a0a23;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .login-container {
-      background: #121236;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #1f1f55;
-      width: 300px;
+      margin: 20px;
+      background: #f9f9f9;
     }
     h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
+      color: #333;
     }
-    label {
-      display: block;
-      margin-bottom: 0.25rem;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="password"] {
+    table {
       width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 4px;
+      border-collapse: collapse;
+      margin-top: 15px;
+      background: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
     }
     button {
-      width: 100%;
-      padding: 0.7rem;
-      background: #00b894;
+      background-color: #28a745;
       border: none;
-      border-radius: 4px;
-      color: #fff;
-      font-size: 1rem;
+      padding: 8px 12px;
+      color: white;
       cursor: pointer;
+      border-radius: 4px;
     }
-    button:hover {
-      background: #019875;
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
     }
-    .error {
-      color: #ff4d4d;
-      margin-bottom: 1rem;
-      display: none;
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>DigiTraderPro Login</h1>
-    <div id="error" class="error"></div>
-    <form id="loginForm">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+  <h1>DigiTraderPro Admin Dashboard</h1>
 
-      <button type="submit">Login</button>
-    </form>
-  </div>
+  <h3>Pending Deposits</h3>
+  <table id="deposits-table">
+    <thead>
+      <tr>
+        <th>Deposit ID</th>
+        <th>User</th>
+        <th>Amount (USD)</th>
+        <th>Date</th>
+        <th>Approve</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- deposits will load here -->
+    </tbody>
+  </table>
+
+  <div id="message" class="message" style="display:none;"></div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+    // Dummy pending deposits data (simulate API response)
+    let pendingDeposits = [
+      { id: 'D1001', user: 'alice', amount: 150, date: '2025-08-08 14:23' },
+      { id: 'D1002', user: 'bob', amount: 250, date: '2025-08-08 15:00' },
+      { id: 'D1003', user: 'charlie', amount: 500, date: '2025-08-09 09:45' }
+    ];
 
-      const username = e.target.username.value.trim();
-      const password = e.target.password.value.trim();
-      const errorDiv = document.getElementById('error');
+    const depositsTableBody = document.querySelector('#deposits-table tbody');
+    const messageDiv = document.getElementById('message');
 
-      if (!username || !password) {
-        errorDiv.textContent = 'Please enter both username and password.';
-        errorDiv.style.display = 'block';
+    // Function to render deposits in the table
+    function renderDeposits() {
+      depositsTableBody.innerHTML = '';
+      if(pendingDeposits.length === 0) {
+        depositsTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No pending deposits</td></tr>';
         return;
       }
+      pendingDeposits.forEach(deposit => {
+        const tr = document.createElement('tr');
 
-      // For now, just demo login validation:
-      if (username === 'admin' && password === 'password123') {
-        alert('Login successful! Redirecting to dashboard...');
-        window.location.href = 'dashboard.html'; // Make sure this exists
-      } else {
-        errorDiv.textContent = 'Invalid username or password.';
-        errorDiv.style.display = 'block';
-      }
-    });
+        tr.innerHTML = `
+          <td>${deposit.id}</td>
+          <td>${deposit.user}</td>
+          <td>$${deposit.amount.toFixed(2)}</td>
+          <td>${deposit.date}</td>
+          <td><button data-id="${deposit.id}">Approve</button></td>
+        `;
+
+        depositsTableBody.appendChild(tr);
+      });
+
+      // Add event listeners to approve buttons
+      document.querySelectorAll('button[data-id]').forEach(button => {
+        button.addEventListener('click', () => {
+          approveDeposit(button.getAttribute('data-id'), button);
+        });
+      });
+    }
+
+    // Simulate API call to approve deposit
+    function approveDeposit(depositId, button) {
+      button.disabled = true;
+      button.textContent = 'Approving...';
+
+      // Simulate delay for API request
+      setTimeout(() => {
+        // Remove deposit from pending list
+        pendingDeposits = pendingDeposits.filter(d => d.id !== depositId);
+
+        showMessage(`Deposit ${depositId} approved successfully.`, 'success');
+        renderDeposits();
+      }, 1000);
+    }
+
+    // Show status message
+    function showMessage(text, type) {
+      messageDiv.textContent = text;
+      messageDiv.className = 'message ' + type;
+      messageDiv.style.display = 'block';
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Initial load
+    renderDeposits();
   </script>
+
 </body>
 </html>
