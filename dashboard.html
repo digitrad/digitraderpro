@@ -1,24 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - DigiTraderPro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DigiTraderPro Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #1b2a49;
-            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0f2c, #1b2a49);
+            color: #fff;
             text-align: center;
-            padding-top: 50px;
+            padding: 50px 20px;
+            margin: 0;
+        }
+        header {
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff9800;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
         }
         h1 {
-            color: #ff9800;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+        button {
+            background-color: #ff9800;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e68900;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome Admin</h1>
-    <p>You have successfully logged in to DigiTraderPro.</p>
+    <header>
+        <div class="logo">DigiTraderPro</div>
+    </header>
+    <main>
+        <h1>Welcome Admin</h1>
+        <p>You have successfully logged in to DigiTraderPro.</p>
+        <button onclick="logout()">Logout</button>
+    </main>
+
+    <script>
+        function logout() {
+            window.location.href = "/index.html";
+        }
+    </script>
 </body>
 </html>
