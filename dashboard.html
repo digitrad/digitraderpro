@@ -3,84 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro Live Dashboard</title>
+  <title>DigiTraderPro Login</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #333; }
-    h1 { text-align: center; color: #2c3e50; }
-    .stats { display: flex; justify-content: space-around; flex-wrap: wrap; margin-bottom: 20px; }
-    .card { background: white; border-radius: 8px; padding: 20px; width: 200px; margin: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-    .card h2 { margin: 0 0 10px; color: #2980b9; }
-    ul { list-style-type: none; padding: 0; }
-    li { background: white; margin: 5px 0; padding: 10px; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a23;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: #121236;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #1f1f55;
+      width: 300px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background: #00b894;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #019875;
+    }
+    .error {
+      color: #ff4d4d;
+      margin-bottom: 1rem;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h1>DigiTraderPro Live Dashboard</h1>
+  <div class="login-container">
+    <h1>DigiTraderPro Login</h1>
+    <div id="error" class="error"></div>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required />
 
-  <div class="stats">
-    <div class="card">
-      <h2 id="totalUsers">--</h2>
-      <p>Total Users</p>
-    </div>
-    <div class="card">
-      <h2 id="totalDeposits">--</h2>
-      <p>Total Deposits</p>
-    </div>
-    <div class="card">
-      <h2 id="totalWithdrawals">--</h2>
-      <p>Total Withdrawals</p>
-    </div>
-    <div class="card">
-      <h2 id="pendingWithdrawals">--</h2>
-      <p>Pending Withdrawals</p>
-    </div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Login</button>
+    </form>
   </div>
 
-  <h3>Recent Registrations</h3>
-  <ul id="recentRegistrations">
-    <li>Loading...</li>
-  </ul>
-
-  <h3>Recent Logins</h3>
-  <ul id="recentLogins">
-    <li>Loading...</li>
-  </ul>
-
   <script>
-    async function loadDashboardData() {
-      try {
-        const response = await fetch('data.json');
-        const data = await response.json();
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-        document.getElementById('totalUsers').textContent = data.totalUsers;
-        document.getElementById('totalDeposits').textContent = '$' + data.totalDeposits.toLocaleString();
-        document.getElementById('totalWithdrawals').textContent = '$' + data.totalWithdrawals.toLocaleString();
-        document.getElementById('pendingWithdrawals').textContent = data.pendingWithdrawals;
+      const username = e.target.username.value.trim();
+      const password = e.target.password.value.trim();
+      const errorDiv = document.getElementById('error');
 
-        const regList = document.getElementById('recentRegistrations');
-        regList.innerHTML = '';
-        data.recentRegistrations.forEach(reg => {
-          const li = document.createElement('li');
-          li.textContent = `${reg.username} — Registered on ${reg.date}`;
-          regList.appendChild(li);
-        });
-
-        const loginList = document.getElementById('recentLogins');
-        loginList.innerHTML = '';
-        data.recentLogins.forEach(login => {
-          const li = document.createElement('li');
-          li.textContent = `${login.username} — Logged in at ${login.time}`;
-          loginList.appendChild(li);
-        });
-      } catch (error) {
-        console.error('Error loading dashboard data:', error);
+      if (!username || !password) {
+        errorDiv.textContent = 'Please enter both username and password.';
+        errorDiv.style.display = 'block';
+        return;
       }
-    }
 
-    loadDashboardData();
-
-    // Optional: refresh data every 30 seconds
-    setInterval(loadDashboardData, 30000);
+      // For now, just demo login validation:
+      if (username === 'admin' && password === 'password123') {
+        alert('Login successful! Redirecting to dashboard...');
+        window.location.href = 'dashboard.html'; // Make sure this exists
+      } else {
+        errorDiv.textContent = 'Invalid username or password.';
+        errorDiv.style.display = 'block';
+      }
+    });
   </script>
 </body>
 </html>
