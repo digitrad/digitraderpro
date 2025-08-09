@@ -1,0 +1,14 @@
+[
+  {
+    "username": "Elizabeth",
+    "email": "elizabeth@example.com",
+    "joined": "2024-12-15",
+    "status": "Active"
+  },
+  {
+    "username": "JohnDoe",
+    "email": "john@example.com",
+    "joined": "2025-01-05",
+    "status": "Inactive"
+  }
+]
