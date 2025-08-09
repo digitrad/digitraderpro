@@ -1,66 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DigiTraderPro Dashboard</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0f2c, #1b2a49);
-            color: #fff;
-            text-align: center;
-            padding: 50px 20px;
-            margin: 0;
-        }
-        header {
-            margin-bottom: 40px;
-        }
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff9800;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: #ccc;
-        }
-        button {
-            background-color: #ff9800;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            color: #fff;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #e68900;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DigiTraderPro Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0f2c;
+      color: #eee;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-weight: 700;
+      color: #ff9800;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .user-info {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .user-info h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .user-info p {
+      margin: 5px 0 0 0;
+      color: #ff9800;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #1b2a49;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-weight: 600;
+      color: #ff9800;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    .stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .stat-small {
+      font-size: 1rem;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">DigiTraderPro</div>
-    </header>
-    <main>
-        <h1>Welcome Admin</h1>
-        <p>You have successfully logged in to DigiTraderPro.</p>
-        <button onclick="logout()">Logout</button>
-    </main>
+  <header>
+    <h1>DigiTraderPro Dashboard</h1>
+  </header>
 
-    <script>
-        function logout() {
-            window.location.href = "/index.html";
-        }
-    </script>
+  <section class="user-info">
+    <h2>DumotElizabeth</h2>
+    <p>@Elizabeth</p>
+  </section>
+
+  <section class="dashboard-grid">
+    <div class="card">
+      <h3>Account Balance</h3>
+      <div class="stat">$37,260</div>
+      <div class="stat-small">Total Earned: $32,010</div>
+      <div class="stat-small">Today's Profit: $0</div>
+    </div>
+
+    <div class="card">
+      <h3>Deposit</h3>
+      <div class="stat">Total Deposit: $30,000</div>
+      <div class="stat-small">Active Deposit: $0</div>
+      <div class="stat-small">Last Deposit: $10,000</div>
+    </div>
+
+    <div class="card">
+      <h3>Withdrawal</h3>
+      <div class="stat">Total Withdrawal: $4,750</div>
+      <div class="stat-small">Withdrawals: 4</div>
+      <div class="stat-small">Pending Withdrawal: $0</div>
+    </div>
+  </section>
 </body>
 </html>
