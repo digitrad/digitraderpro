@@ -1,16 +1,8 @@
-import fs from "fs";
-import path from "path";
+//index.js
 
-export default function handler(req, res) {
-  const filePath = path.resolve("./transactions.json");
-  let stats = {};
+let menuicn = document.querySelector(".menuicn");
+let nav = document.querySelector(".navcontainer");
 
-  try {
-    const data = fs.readFileSync(filePath, "utf8");
-    stats = JSON.parse(data);
-  } catch (err) {
-    return res.status(500).json({ error: "Failed to load stats" });
-  }
-
-  res.status(200).json(stats);
-}
+menuicn.addEventListener("click", () => {
+    nav.classList.toggle("navclose");
+})
