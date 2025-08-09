@@ -92,19 +92,19 @@
   <section class="stats-grid">
     <div class="stat-card">
       <h3>Total Users</h3>
-      <div class="stat-number">120</div>
+      <div class="stat-number" id="total-users">...</div>
     </div>
     <div class="stat-card">
       <h3>Total Deposits</h3>
-      <div class="stat-number">$1,500,000</div>
+      <div class="stat-number" id="total-deposits">...</div>
     </div>
     <div class="stat-card">
       <h3>Total Withdrawals</h3>
-      <div class="stat-number">$450,000</div>
+      <div class="stat-number" id="total-withdrawals">...</div>
     </div>
     <div class="stat-card">
       <h3>Pending Withdrawals</h3>
-      <div class="stat-number">$20,000</div>
+      <div class="stat-number" id="pending-withdrawals">...</div>
     </div>
   </section>
 
@@ -120,24 +120,64 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Elizabeth</td>
-          <td>elizabeth@example.com</td>
-          <td>2024-12-15</td>
-          <td>Active</td>
-          <td><button>Edit</button> <button>Delete</button></td>
-        </tr>
-        <tr>
-          <td>JohnDoe</td>
-          <td>john@example.com</td>
-          <td>2025-01-05</td>
-          <td>Inactive</td>
-          <td><button>Edit</button> <button>Delete</button></td>
-        </tr>
-        <!-- Add more rows here -->
+      <tbody id="users-tbody">
+        <!-- User rows will be dynamically added here -->
       </tbody>
     </table>
   </section>
+
+  <script>
+    async function loadAdminData() {
+      try {
+        // Fetch stats
+        const statsRes = await fetch('/api/admin/stats');
+        const stats = await statsRes.json();
+
+        document.getElementById('total-users').textContent = stats.totalUsers;
+        document.getElementById('total-deposits').textContent = `$${stats.totalDeposits.toLocaleString()}`;
+        document.getElementById('total-withdrawals').textContent = `$${stats.totalWithdrawals.toLocaleString()}`;
+        document.getElementById('pending-withdrawals').textContent = `$${stats.pendingWithdrawals.toLocaleString()}`;
+
+        // Fetch users
+        const usersRes = await fetch('/api/admin/users');
+        const users = await usersRes.json();
+
+        const tbody = document.getElementById('users-tbody');
+        tbody.innerHTML = ''; // clear existing rows
+
+        users.forEach(user => {
+          const tr = document.createElement('tr');
+
+          tr.innerHTML = `
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.joined}</td>
+            <td>${user.status}</td>
+            <td>
+              <button onclick="editUser('${user.username}')">Edit</button>
+              <button onclick="deleteUser('${user.username}')">Delete</button>
+            </td>
+          `;
+
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error('Failed to load admin data', error);
+      }
+    }
+
+    function editUser(username) {
+      alert('Edit user: ' + username);
+      // Implement edit functionality here
+    }
+
+    function deleteUser(username) {
+      alert('Delete user: ' + username);
+      // Implement delete functionality here
+    }
+
+    // Load data when page loads
+    window.onload = loadAdminData;
+  </script>
 </body>
 </html>
