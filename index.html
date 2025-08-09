@@ -52,12 +52,35 @@
 <body>
     <div class="login-box">
         <h2>Login</h2>
-        <form>
-            <input type="text" placeholder="Username" required><br>
-            <input type="password" placeholder="Password" required><br>
+        <form onsubmit="login(event)">
+            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
             <input type="submit" value="Login" class="btn">
         </form>
         <footer>© 2025 DigiTraderPro</footer>
     </div>
+
+    <script>
+        async function login(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                window.location.href = "/dashboard.html";
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
 </body>
 </html>
