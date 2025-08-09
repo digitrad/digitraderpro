@@ -1,14 +1,33 @@
-<div class="dashboard-stats">
-  <div class="stat-card">
-    <h3>Total Users</h3>
-    <p id="total-users">0</p>
-  </div>
-  <div class="stat-card">
-    <h3>Total Deposits</h3>
-    <p id="total-deposits">0</p>
-  </div>
-  <div class="stat-card">
-    <h3>Total Withdrawals</h3>
-    <p id="total-withdrawals">0</p>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Dashboard</title>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <div>Total Users: <span id="totalUsers">Loading...</span></div>
+  <div>Total Deposits: <span id="totalDeposits">Loading...</span></div>
+  <div>Total Withdrawals: <span id="totalWithdrawals">Loading...</span></div>
+
+  <script>
+    async function fetchDashboardData() {
+      try {
+        // Replace with your real API endpoint
+        const response = await fetch('https://your-api.com/dashboard-data');
+        const data = await response.json();
+
+        document.getElementById('totalUsers').textContent = data.totalUsers;
+        document.getElementById('totalDeposits').textContent = data.totalDeposits;
+        document.getElementById('totalWithdrawals').textContent = data.totalWithdrawals;
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    }
+
+    fetchDashboardData();
+
+    // Optionally refresh data every minute
+    setInterval(fetchDashboardData, 60000);
+  </script>
+</body>
+</html>
