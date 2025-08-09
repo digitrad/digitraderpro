@@ -3,181 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro Admin Dashboard</title>
+  <title>DigiTraderPro Dashboard</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0a0f2c;
-      color: #eee;
-      margin: 0;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header h1 {
-      color: #ff9800;
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto 40px auto;
-    }
-    .stat-card {
-      background: #1b2a49;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    .stat-card h3 {
-      color: #ff9800;
-      margin-bottom: 10px;
-    }
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-    .user-management {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .user-management h2 {
-      margin-bottom: 15px;
-      color: #ff9800;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #1b2a49;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #2e3b62;
-      color: #ddd;
-    }
-    th {
-      background-color: #22345d;
-    }
-    tr:hover {
-      background-color: #2e3b62;
-    }
-    button {
-      background-color: #ff9800;
-      border: none;
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #e68900;
-    }
+    body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; color: #333; }
+    header { background-color: #2c3e50; padding: 1rem; color: white; text-align: center; font-size: 1.5rem; font-weight: bold; }
+    .container { padding: 1rem; max-width: 900px; margin: 0 auto; }
+    .cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-around; }
+    .card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 200px; padding: 1rem 1.5rem; text-align: center; min-width: 150px; }
+    .card h2 { margin: 0; font-size: 2.5rem; color: #2980b9; }
+    .card p { margin: 0.5rem 0 0 0; font-weight: bold; color: #555; }
+    ul { list-style-type: none; padding: 0; }
+    li { background: white; margin: 0.3rem 0; padding: 0.5rem 1rem; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Admin Dashboard</h1>
-  </header>
+  <header>DigiTraderPro Admin Dashboard</header>
+  <div class="container">
+    <div class="cards">
+      <div class="card">
+        <h2 id="totalUsers">--</h2>
+        <p>Total Users</p>
+      </div>
+      <div class="card">
+        <h2 id="totalDeposits">--</h2>
+        <p>Total Deposits</p>
+      </div>
+      <div class="card">
+        <h2 id="totalWithdrawals">--</h2>
+        <p>Total Withdrawals</p>
+      </div>
+      <div class="card">
+        <h2 id="pendingWithdrawals">--</h2>
+        <p>Pending Withdrawals</p>
+      </div>
+    </div>
 
-  <section class="stats-grid">
-    <div class="stat-card">
-      <h3>Total Users</h3>
-      <div class="stat-number" id="total-users">...</div>
-    </div>
-    <div class="stat-card">
-      <h3>Total Deposits</h3>
-      <div class="stat-number" id="total-deposits">...</div>
-    </div>
-    <div class="stat-card">
-      <h3>Total Withdrawals</h3>
-      <div class="stat-number" id="total-withdrawals">...</div>
-    </div>
-    <div class="stat-card">
-      <h3>Pending Withdrawals</h3>
-      <div class="stat-number" id="pending-withdrawals">...</div>
-    </div>
-  </section>
+    <h3>Recent Registrations</h3>
+    <ul id="recentRegistrations">
+      <li>Loading...</li>
+    </ul>
 
-  <section class="user-management">
-    <h2>User Management</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Joined</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="users-tbody">
-        <!-- User rows will be dynamically added here -->
-      </tbody>
-    </table>
-  </section>
+    <h3>Recent Logins</h3>
+    <ul id="recentLogins">
+      <li>Loading...</li>
+    </ul>
+  </div>
 
   <script>
-    async function loadAdminData() {
+    async function loadDashboardData() {
       try {
-        // Fetch stats
-        const statsRes = await fetch('/api/admin/stats');
-        const stats = await statsRes.json();
+        const response = await fetch('/data.json');
+        const data = await response.json();
 
-        document.getElementById('total-users').textContent = stats.totalUsers;
-        document.getElementById('total-deposits').textContent = `$${stats.totalDeposits.toLocaleString()}`;
-        document.getElementById('total-withdrawals').textContent = `$${stats.totalWithdrawals.toLocaleString()}`;
-        document.getElementById('pending-withdrawals').textContent = `$${stats.pendingWithdrawals.toLocaleString()}`;
+        document.getElementById('totalUsers').textContent = data.totalUsers;
+        document.getElementById('totalDeposits').textContent = '$' + data.totalDeposits.toLocaleString();
+        document.getElementById('totalWithdrawals').textContent = '$' + data.totalWithdrawals.toLocaleString();
+        document.getElementById('pendingWithdrawals').textContent = data.pendingWithdrawals;
 
-        // Fetch users
-        const usersRes = await fetch('/api/admin/users');
-        const users = await usersRes.json();
+        const regList = document.getElementById('recentRegistrations');
+        regList.innerHTML = '';
+        data.recentRegistrations.forEach(reg => {
+          const li = document.createElement('li');
+          li.textContent = `${reg.username} — Registered on ${reg.date}`;
+          regList.appendChild(li);
+        });
 
-        const tbody = document.getElementById('users-tbody');
-        tbody.innerHTML = ''; // clear existing rows
-
-        users.forEach(user => {
-          const tr = document.createElement('tr');
-
-          tr.innerHTML = `
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-            <td>${user.joined}</td>
-            <td>${user.status}</td>
-            <td>
-              <button onclick="editUser('${user.username}')">Edit</button>
-              <button onclick="deleteUser('${user.username}')">Delete</button>
-            </td>
-          `;
-
-          tbody.appendChild(tr);
+        const loginList = document.getElementById('recentLogins');
+        loginList.innerHTML = '';
+        data.recentLogins.forEach(login => {
+          const li = document.createElement('li');
+          li.textContent = `${login.username} — Logged in at ${login.time}`;
+          loginList.appendChild(li);
         });
       } catch (error) {
-        console.error('Failed to load admin data', error);
+        console.error('Failed to load dashboard data:', error);
       }
     }
 
-    function editUser(username) {
-      alert('Edit user: ' + username);
-      // Implement edit functionality here
-    }
+    loadDashboardData();
 
-    function deleteUser(username) {
-      alert('Delete user: ' + username);
-      // Implement delete functionality here
-    }
-
-    // Load data when page loads
-    window.onload = loadAdminData;
+    // Optional: Refresh data every 30 seconds for live update
+    setInterval(loadDashboardData, 30000);
   </script>
 </body>
 </html>
