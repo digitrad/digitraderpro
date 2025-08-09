@@ -1,14 +1,14 @@
-[
-  {
-    "username": "Elizabeth",
-    "email": "elizabeth@example.com",
-    "joined": "2024-12-15",
-    "status": "Active"
-  },
-  {
-    "username": "JohnDoe",
-    "email": "john@example.com",
-    "joined": "2025-01-05",
-    "status": "Inactive"
-  }
-]
+{
+  "totalUsers": 120,
+  "totalDeposits": 45000,
+  "totalWithdrawals": 15000,
+  "pendingWithdrawals": 5,
+  "recentRegistrations": [
+    { "username": "user1", "date": "2025-08-01" },
+    { "username": "user2", "date": "2025-08-03" }
+  ],
+  "recentLogins": [
+    { "username": "user1", "time": "10:15 AM" },
+    { "username": "user3", "time": "11:30 AM" }
+  ]
+}
