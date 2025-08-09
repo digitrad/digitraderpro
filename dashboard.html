@@ -8,17 +8,18 @@
   <div>Total Users: <span id="totalUsers">Loading...</span></div>
   <div>Total Deposits: <span id="totalDeposits">Loading...</span></div>
   <div>Total Withdrawals: <span id="totalWithdrawals">Loading...</span></div>
+  <div>Pending Withdrawals: <span id="pendingWithdrawals">Loading...</span></div>
 
   <script>
     async function fetchDashboardData() {
       try {
-        // Replace with your real API endpoint
-        const response = await fetch('https://your-api.com/dashboard-data');
+        const response = await fetch('http://localhost:3000/dashboard-data');
         const data = await response.json();
 
         document.getElementById('totalUsers').textContent = data.totalUsers;
         document.getElementById('totalDeposits').textContent = data.totalDeposits;
         document.getElementById('totalWithdrawals').textContent = data.totalWithdrawals;
+        document.getElementById('pendingWithdrawals').textContent = data.pendingWithdrawals;
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
@@ -26,8 +27,8 @@
 
     fetchDashboardData();
 
-    // Optionally refresh data every minute
-    setInterval(fetchDashboardData, 60000);
+    // Refresh every 30 seconds
+    setInterval(fetchDashboardData, 30000);
   </script>
 </body>
 </html>
