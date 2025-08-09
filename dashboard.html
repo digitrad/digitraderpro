@@ -1,89 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigiTraderPro homepage</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; color: #333; }
-    header { background-color: #2c3e50; padding: 1rem; color: white; text-align: center; font-size: 1.5rem; font-weight: bold; }
-    .container { padding: 1rem; max-width: 900px; margin: 0 auto; }
-    .cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-around; }
-    .card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1 1 200px; padding: 1rem 1.5rem; text-align: center; min-width: 150px; }
-    .card h2 { margin: 0; font-size: 2.5rem; color: #2980b9; }
-    .card p { margin: 0.5rem 0 0 0; font-weight: bold; color: #555; }
-    ul { list-style-type: none; padding: 0; }
-    li { background: white; margin: 0.3rem 0; padding: 0.5rem 1rem; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: green;
+      margin: 6;
+      padding: 6;
+    }
+    header {
+      background-color: yellow;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .stats, .activities {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card {
+      background-color: green;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 48%;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-yellow: #fff;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
-  <header>DigiTraderPro Admin Dashboard</header>
-  <div class="container">
-    <div class="cards">
-      <div class="card">
-        <h2 id="totalUsers">--</h2>
-        <p>Total Users</p>
-      </div>
-      <div class="card">
-        <h2 id="totalDeposits">--</h2>
-        <p>Total Deposits</p>
-      </div>
-      <div class="card">
-        <h2 id="totalWithdrawals">--</h2>
-        <p>Total Withdrawals</p>
-      </div>
-      <div class="card">
-        <h2 id="pendingWithdrawals">--</h2>
-        <p>Pending Withdrawals</p>
-      </div>
+
+<header>
+  <h1>DigiTraderPro Admin Dashboard</h1>
+</header>
+
+<div class="container">
+  <div class="stats">
+    <div class="card">
+      <h2>Total Users</h2>
+      <p id="totalUsers">unlimited</p>
     </div>
-
-    <h3>Recent Registrations</h3>
-    <ul id="recentRegistrations">
-      <li>Loading...</li>
-    </ul>
-
-    <h3>Recent Logins</h3>
-    <ul id="recentLogins">
-      <li>Loading...</li>
-    </ul>
+    <div class="card">
+      <h2>Active Users</1000>
+      <p id="activeUsers">Edit bonus</unlimited>
+    </div>
   </div>
 
-  <script>
-    async function loadDashboardData() {
-      try {
-        const response = await fetch('/data.json');
-        const data = await response.json();
+  <div class="activities">
+    <div class="card">
+      <h2>Recent Registrations</h2>
+      <ul id="recentRegistrations">
+        <li>Loading... approved</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Recent Logins</h2>
+      <ul id="recentLogins">
+        <li>Loading... dashboard</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-        document.getElementById('totalUsers').textContent = data.totalUsers;
-        document.getElementById('totalDeposits').textContent = '$' + data.totalDeposits.toLocaleString();
-        document.getElementById('totalWithdrawals').textContent = '$' + data.totalWithdrawals.toLocaleString();
-        document.getElementById('pendingWithdrawals').textContent = data.pendingWithdrawals;
+<script>
+  async function fetchDashboardData() {
+    try {
+      const response = await fetch('/data.json');
+      const data = await response.json();
 
-        const regList = document.getElementById('recentRegistrations');
-        regList.innerHTML = '';
-        data.recentRegistrations.forEach(reg => {
-          const li = document.createElement('li');
-          li.textContent = `${reg.username} — Registered on ${reg.date}`;
-          regList.appendChild(li);
-        });
+      document.getElementById('totalUsers').textContent = data.totalUsers;
+      document.getElementById('activeUsers').textContent = data.activeUsers;
 
-        const loginList = document.getElementById('recentLogins');
-        loginList.innerHTML = '';
-        data.recentLogins.forEach(login => {
-          const li = document.createElement('li');
-          li.textContent = `${login.username} — Logged in at ${login.time}`;
-          loginList.appendChild(li);
-        });
-      } catch (error) {
-        console.error('Failed to load dashboard data:', error);
-      }
+      const regList = document.getElementById('recentRegistrations');
+      regList.innerHTML = '';
+      data.recentRegistrations.forEach(reg => {
+        const li = document.createElement('li');
+        li.textContent = `${reg.username} — Registered on ${reg.date}`;
+        regList.appendChild(li);
+      });
+
+      const loginList = document.getElementById('recentLogins');
+      loginList.innerHTML = '';
+      data.recentLogins.forEach(login => {
+        const li = document.createElement('li');
+        li.textContent = `${login.username} — Logged in at ${login.time}`;
+        loginList.appendChild(li);
+      });
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
     }
+  }
 
-    loadDashboardData();
+  fetchDashboardData();
+</script>
 
-    // Optional: Refresh data every 30 seconds for live update
-    setInterval(loadDashboardData, 30000);
-  </script>
 </body>
 </html>
