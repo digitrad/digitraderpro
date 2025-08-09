@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro Dashboard</title>
+  <title>DigiTraderPro Admin Dashboard</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,91 +17,127 @@
       margin-bottom: 30px;
     }
     header h1 {
-      font-weight: 700;
       color: #ff9800;
-      margin: 0;
       font-size: 2.5rem;
-    }
-    .user-info {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .user-info h2 {
       margin: 0;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #fff;
     }
-    .user-info p {
-      margin: 5px 0 0 0;
-      color: #ff9800;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-    .dashboard-grid {
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+    }
+    .stat-card {
+      background: #1b2a49;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .stat-card h3 {
+      color: #ff9800;
+      margin-bottom: 10px;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .user-management {
       max-width: 900px;
       margin: 0 auto;
     }
-    .card {
-      background: #1b2a49;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .card h3 {
-      margin-top: 0;
-      font-weight: 600;
-      color: #ff9800;
+    .user-management h2 {
       margin-bottom: 15px;
-      font-size: 1.3rem;
+      color: #ff9800;
     }
-    .stat {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 8px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1b2a49;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #2e3b62;
+      color: #ddd;
+    }
+    th {
+      background-color: #22345d;
+    }
+    tr:hover {
+      background-color: #2e3b62;
+    }
+    button {
+      background-color: #ff9800;
+      border: none;
       color: #fff;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    .stat-small {
-      font-size: 1rem;
-      color: #aaa;
-      margin-bottom: 12px;
+    button:hover {
+      background-color: #e68900;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>DigiTraderPro Dashboard</h1>
+    <h1>Admin Dashboard</h1>
   </header>
 
-  <section class="user-info">
-    <h2>DumotElizabeth</h2>
-    <p>@Elizabeth</p>
+  <section class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Users</h3>
+      <div class="stat-number">120</div>
+    </div>
+    <div class="stat-card">
+      <h3>Total Deposits</h3>
+      <div class="stat-number">$1,500,000</div>
+    </div>
+    <div class="stat-card">
+      <h3>Total Withdrawals</h3>
+      <div class="stat-number">$450,000</div>
+    </div>
+    <div class="stat-card">
+      <h3>Pending Withdrawals</h3>
+      <div class="stat-number">$20,000</div>
+    </div>
   </section>
 
-  <section class="dashboard-grid">
-    <div class="card">
-      <h3>Account Balance</h3>
-      <div class="stat">$37,260</div>
-      <div class="stat-small">Total Earned: $32,010</div>
-      <div class="stat-small">Today's Profit: $0</div>
-    </div>
-
-    <div class="card">
-      <h3>Deposit</h3>
-      <div class="stat">Total Deposit: $30,000</div>
-      <div class="stat-small">Active Deposit: $0</div>
-      <div class="stat-small">Last Deposit: $10,000</div>
-    </div>
-
-    <div class="card">
-      <h3>Withdrawal</h3>
-      <div class="stat">Total Withdrawal: $4,750</div>
-      <div class="stat-small">Withdrawals: 4</div>
-      <div class="stat-small">Pending Withdrawal: $0</div>
-    </div>
+  <section class="user-management">
+    <h2>User Management</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Joined</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Elizabeth</td>
+          <td>elizabeth@example.com</td>
+          <td>2024-12-15</td>
+          <td>Active</td>
+          <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>JohnDoe</td>
+          <td>john@example.com</td>
+          <td>2025-01-05</td>
+          <td>Inactive</td>
+          <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+        <!-- Add more rows here -->
+      </tbody>
+    </table>
   </section>
 </body>
 </html>
