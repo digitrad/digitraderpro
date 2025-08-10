@@ -1,34 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Live Dashboard</title>
-</head>
-<body>
-  <h1>Admin Dashboard</h1>
-  <div>Total Users: <span id="totalUsers">Loading...</span></div>
-  <div>Total Deposits: <span id="totalDeposits">Loading...</span></div>
-  <div>Total Withdrawals: <span id="totalWithdrawals">Loading...</span></div>
-  <div>Pending Withdrawals: <span id="pendingWithdrawals">Loading...</span></div>
-
-  <script>
-    async function fetchDashboardData() {
-      try {
-        const response = await fetch('http://localhost:3000/dashboard-data');
-        const data = await response.json();
-
-        document.getElementById('totalUsers').textContent = data.totalUsers;
-        document.getElementById('totalDeposits').textContent = data.totalDeposits;
-        document.getElementById('totalWithdrawals').textContent = data.totalWithdrawals;
-        document.getElementById('pendingWithdrawals').textContent = data.pendingWithdrawals;
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      }
-    }
-
-    fetchDashboardData();
-
-    // Refresh every 30 seconds
-    setInterval(fetchDashboardData, 30000);
-  </script>
-</body>
-</html>
+fetch("/api/stats")
+  .then(res => res.json())
+  .then(data => {
+      document.getElementById("totalUsers").textContent = data.totalUsers;
+      document.getElementById("totalDeposits").textContent = `$${data.totalDeposits}`;
+      document.getElementById("totalWithdrawals").textContent = `$${data.totalWithdrawals}`;
+      document.getElementById("pendingWithdrawals").textContent = data.pendingWithdrawals;
+  });
