@@ -1,86 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigiTraderPro - Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0a0f2c, #1b2a49);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .login-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-    }
-    h2 {
-      margin-bottom: 20px;
-    }
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-    }
-    .btn {
-      background-color: #ff9800;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background-color: #e68900;
-    }
-    footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiTrader - Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="login-box">
-    <h2>Login</h2>
-    <form onsubmit="login(event)">
-      <input type="text" id="username" placeholder="Username" required /><br />
-      <input type="password" id="password" placeholder="Password" required /><br />
-      <input type="submit" value="Login" class="btn" />
-    </form>
-    <footer>© 2025 DigiTraderPro</footer>
-  </div>
 
-  <script>
-    async function login(event) {
-      event.preventDefault();
+<!-- Language Selector -->
+<div class="language-bar">
+    <select>
+        <option>English</option>
+        <option>French</option>
+        <option>Spanish</option>
+    </select>
+    <span>Powered by Google Translate</span>
+</div>
 
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+<!-- Logo & Navigation -->
+<header>
+    <img src="logo.png" alt="DigiTrader Logo" class="logo">
+</header>
 
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+<!-- Main Login Section -->
+<section class="login-section">
+    <div class="login-image">
+        <img src="background.jpg" alt="Login Background">
+        <div class="overlay"></div>
+    </div>
+    <div class="login-form">
+        <h2>Login</h2>
+        <p class="breadcrumb">Home >> Login</p>
+        <form>
+            <label>Email</label>
+            <input type="email" placeholder="Enter your email" required>
+            <label>Password</label>
+            <input type="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</section>
 
-      const data = await response.json();
+<!-- Floating Telegram Icon -->
+<a href="https://t.me/yourtelegram" target="_blank" class="telegram-icon">
+    <img src="telegram.png" alt="Telegram">
+</a>
 
-      if (data.success) {
-        window.location.href = "/dashboard.html";
-      } else {
-        alert(data.message);
-      }
-    }
-  </script>
+<!-- Floating Chat Icon -->
+<a href="chat.html" class="chat-icon">
+    💬
+</a>
+
 </body>
 </html>
